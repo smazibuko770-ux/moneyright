@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MoneyRight</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .profit {
+            color: green;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .expense {
+            color: red;
+        }
+
+        .earnings {
+            color: #333;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .logout {
+            background: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>MoneyRight</h1>
+
+    <div class="card">
+        <h3>User: {{ user }}</h3>
+        <a class="logout" href="/logout">Logout</a>
+    </div>
+
+    <div class="card earnings">
+        <h2>Total Earnings: R{{ total_earnings }}</h2>
+    </div>
+
+    <div class="card expense">
+        <h2>Total Expenses: R{{ total_expenses }}</h2>
+    </div>
+
+    <div class="card profit">
+        <h2>Profit: R{{ profit }}</h2>
+    </div>
+
+    <div class="card">
+        <h3>Earnings List</h3>
+        <ul>
+            {% for e in earnings %}
+                <li>R{{ e }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Expenses List</h3>
+        <ul>
+            {% for e in expenses %}
+                <li>R{{ e }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card">
+        <a href="/add_earning">Add Earning</a>
+        <a href="/add_expense">Add Expense</a>
+    </div>
+
+</div>
+
+</body>
+</html>
