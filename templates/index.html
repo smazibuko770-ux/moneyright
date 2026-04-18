@@ -5,93 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: #f1f3f6;
-        }
+        body { margin:0; font-family:Arial; background:#f1f3f6; }
 
         .header {
-            background: #0d1b2a;
-            color: white;
-            padding: 20px;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            background:#0d1b2a;
+            color:white;
+            padding:20px;
         }
 
         .profit {
-            font-size: 28px;
-            margin-top: 10px;
-            color: #00c853;
-            font-weight: bold;
+            font-size:28px;
+            color:#00c853;
+            font-weight:bold;
         }
 
-        .container {
-            padding: 15px;
-        }
+        .container { padding:15px; }
 
         .card {
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            background:white;
+            padding:15px;
+            border-radius:12px;
+            margin-bottom:12px;
         }
 
-        .card h3 {
-            margin: 0;
-            font-size: 13px;
-            color: gray;
-        }
-
-        .card p {
-            margin: 5px 0 0;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .green { color: #00c853; }
-        .red { color: #d50000; }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
+        .green { color:#00c853; }
+        .red { color:#d50000; }
 
         .btn {
-            flex: 1;
-            text-align: center;
-            padding: 14px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
+            display:block;
+            text-align:center;
+            padding:12px;
+            border-radius:8px;
+            margin-top:10px;
+            text-decoration:none;
+            color:white;
         }
 
-        .btn-income { background: #00c853; }
-        .btn-expense { background: #d50000; }
+        .income { background:#00c853; }
+        .expense { background:#d50000; }
+        .download { background:#007bff; }
+        .reset { background:#333; }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .reset {
-            background: #333;
-            color: white;
-        }
-
-        .logout {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #555;
-            text-decoration: none;
-        }
+        ul { padding-left:15px; }
     </style>
 </head>
 
@@ -114,16 +69,33 @@
         <p class="red">R{{ total_expenses }}</p>
     </div>
 
-    <div class="card actions">
-        <a class="btn btn-income" href="/add_earning">+ Earnings</a>
-        <a class="btn btn-expense" href="/add_expense">+ Expense</a>
+    <div class="card">
+        <a class="btn income" href="/add_earning">+ Add Earnings</a>
+        <a class="btn expense" href="/add_expense">+ Add Expense</a>
+        <a class="btn download" href="/download">Download Report</a>
+    </div>
+
+    <div class="card">
+        <h3>Earnings</h3>
+        <ul>
+            {% for e in earnings %}
+                <li>R{{ e.amount }} ({{ e.date }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Expenses</h3>
+        <ul>
+            {% for e in expenses %}
+                <li>R{{ e.amount }} ({{ e.date }})</li>
+            {% endfor %}
+        </ul>
     </div>
 
     <form method="POST" action="/reset">
-        <button class="reset">Reset Week</button>
+        <button class="btn reset">Reset Week</button>
     </form>
-
-    <a class="logout" href="/logout">Logout</a>
 
 </div>
 
