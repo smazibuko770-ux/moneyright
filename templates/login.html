@@ -1,9 +1,77 @@
-<h1>Login</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - MoneyRight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<form method="POST">
-    <input type="email" name="email" placeholder="Email" required><br><br>
-    <input type="password" name="password" placeholder="Password" required><br><br>
-    <button type="submit">Login</button>
-</form>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #0d1b2a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-<a href="/register">Create account</a>
+        .card {
+            background: white;
+            color: black;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: none;
+            background: #00c853;
+            color: white;
+            font-weight: bold;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #0d1b2a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Login</h2>
+
+    <form method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <a href="/register">Create account</a>
+</div>
+
+</body>
+</html>
