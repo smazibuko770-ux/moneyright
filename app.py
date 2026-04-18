@@ -9,7 +9,7 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# HOME (dashboard)
+# HOME
 
 
 @app.route('/')
@@ -52,7 +52,7 @@ def register():
         email = request.form['email']
         password = request.form['password']
 
-        res = supabase.auth.sign_up({
+        supabase.auth.sign_up({
             "email": email,
             "password": password
         })
@@ -128,6 +128,21 @@ def add_expense():
         return redirect('/')
 
     return render_template('add_expense.html')
+
+# RESET DATA
+
+
+@app.route('/reset', methods=['POST'])
+def reset():
+    if 'user' not in session:
+        return redirect('/login')
+
+    user_id = session['user']
+
+    supabase.table("earnings").delete().eq("user_id", user_id).execute()
+    supabase.table("expenses").delete().eq("user_id", user_id).execute()
+
+    return redirect('/')
 
 
 if __name__ == '__main__':

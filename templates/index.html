@@ -2,106 +2,128 @@
 <html>
 <head>
     <title>MoneyRight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
-            font-family: Arial;
-            background-color: #f4f6f8;
             margin: 0;
-            padding: 0;
+            font-family: Arial;
+            background: #f1f3f6;
+        }
+
+        .header {
+            background: #0d1b2a;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        .profit {
+            font-size: 28px;
+            margin-top: 10px;
+            color: #00c853;
+            font-weight: bold;
         }
 
         .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
+            padding: 15px;
         }
 
         .card {
             background: white;
-            padding: 20px;
-            margin: 10px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
-        .profit {
-            color: green;
+        .card h3 {
+            margin: 0;
+            font-size: 13px;
+            color: gray;
+        }
+
+        .card p {
+            margin: 5px 0 0;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 20px;
         }
 
-        .expense {
-            color: red;
+        .green { color: #00c853; }
+        .red { color: #d50000; }
+
+        .actions {
+            display: flex;
+            gap: 10px;
         }
 
-        .earnings {
-            color: #333;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 10px;
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
             text-decoration: none;
             color: white;
-            background: #007bff;
-            padding: 10px 15px;
-            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-income { background: #00c853; }
+        .btn-expense { background: #d50000; }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .reset {
+            background: #333;
+            color: white;
         }
 
         .logout {
-            background: #dc3545;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
         }
     </style>
 </head>
+
 <body>
+
+<div class="header">
+    <h2>MoneyRight</h2>
+    <div class="profit">R{{ profit }}</div>
+</div>
 
 <div class="container">
 
-    <h1>MoneyRight</h1>
-
     <div class="card">
-        <h3>User: {{ user }}</h3>
-        <a class="logout" href="/logout">Logout</a>
-    </div>
-
-    <div class="card earnings">
-        <h2>Total Earnings: R{{ total_earnings }}</h2>
-    </div>
-
-    <div class="card expense">
-        <h2>Total Expenses: R{{ total_expenses }}</h2>
-    </div>
-
-    <div class="card profit">
-        <h2>Profit: R{{ profit }}</h2>
+        <h3>Total Earnings</h3>
+        <p class="green">R{{ total_earnings }}</p>
     </div>
 
     <div class="card">
-        <h3>Earnings List</h3>
-        <ul>
-            {% for e in earnings %}
-                <li>R{{ e }}</li>
-            {% endfor %}
-        </ul>
+        <h3>Total Expenses</h3>
+        <p class="red">R{{ total_expenses }}</p>
     </div>
 
-    <div class="card">
-        <h3>Expenses List</h3>
-        <ul>
-            {% for e in expenses %}
-                <li>R{{ e }}</li>
-            {% endfor %}
-        </ul>
+    <div class="card actions">
+        <a class="btn btn-income" href="/add_earning">+ Earnings</a>
+        <a class="btn btn-expense" href="/add_expense">+ Expense</a>
     </div>
 
-    <div class="card">
-        <a href="/add_earning">Add Earning</a>
-        <a href="/add_expense">Add Expense</a>
-    </div>
+    <form method="POST" action="/reset">
+        <button class="reset">Reset Week</button>
+    </form>
+
+    <a class="logout" href="/logout">Logout</a>
 
 </div>
 
