@@ -11,12 +11,24 @@
             background:#0d1b2a;
             color:white;
             padding:20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
         }
 
         .profit {
-            font-size:28px;
+            font-size:26px;
             color:#00c853;
             font-weight:bold;
+        }
+
+        .logout {
+            background:#d50000;
+            color:white;
+            padding:8px 12px;
+            border-radius:6px;
+            text-decoration:none;
+            font-size:12px;
         }
 
         .container { padding:15px; }
@@ -39,6 +51,7 @@
             margin-top:10px;
             text-decoration:none;
             color:white;
+            font-weight:bold;
         }
 
         .income { background:#00c853; }
@@ -53,8 +66,12 @@
 <body>
 
 <div class="header">
-    <h2>MoneyRight</h2>
-    <div class="profit">R{{ profit }}</div>
+    <div>
+        <h3>MoneyRight</h3>
+        <div class="profit">R{{ profit }}</div>
+    </div>
+
+    <a class="logout" href="/logout">Logout</a>
 </div>
 
 <div class="container">

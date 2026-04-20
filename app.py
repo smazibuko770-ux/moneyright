@@ -10,6 +10,8 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+# HOME
+
 
 @app.route('/')
 def home():
@@ -46,6 +48,98 @@ def home():
         profit=profit
     )
 
+# LOGIN
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        res = supabase.auth.sign_in_with_password({
+            "email": email,
+            "password": password
+        })
+
+        if res.user:
+            session['user'] = res.user.id
+            return redirect('/')
+
+    return render_template('login.html')
+
+# REGISTER
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    message = ""
+
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        supabase.auth.sign_up({
+            "email": email,
+            "password": password
+        })
+
+        message = "Registration successful"
+
+    return render_template('register.html', message=message)
+
+# LOGOUT
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/login')
+
+# ADD EARNING
+
+
+@app.route('/add_earning', methods=['GET', 'POST'])
+def add_earning():
+    if 'user' not in session:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        amount = float(request.form['amount'])
+
+        supabase.table("earnings").insert({
+            "amount": amount,
+            "user_id": session['user'],
+            "created_at": datetime.utcnow().isoformat()
+        }).execute()
+
+        return redirect('/')
+
+    return render_template('add_earning.html')
+
+# ADD EXPENSE
+
+
+@app.route('/add_expense', methods=['GET', 'POST'])
+def add_expense():
+    if 'user' not in session:
+        return redirect('/login')
+
+    if request.method == 'POST':
+        amount = float(request.form['amount'])
+
+        supabase.table("expenses").insert({
+            "amount": amount,
+            "user_id": session['user'],
+            "created_at": datetime.utcnow().isoformat()
+        }).execute()
+
+        return redirect('/')
+
+    return render_template('add_expense.html')
+
+# DOWNLOAD REPORT
+
 
 @app.route('/download')
 def download():
@@ -75,43 +169,7 @@ def download():
         headers={"Content-Disposition": "attachment;filename=report.txt"}
     )
 
-
-@app.route('/add_earning', methods=['GET', 'POST'])
-def add_earning():
-    if 'user' not in session:
-        return redirect('/login')
-
-    if request.method == 'POST':
-        amount = float(request.form['amount'])
-
-        supabase.table("earnings").insert({
-            "amount": amount,
-            "user_id": session['user'],
-            "created_at": datetime.utcnow().isoformat()
-        }).execute()
-
-        return redirect('/')
-
-    return render_template('add_earning.html')
-
-
-@app.route('/add_expense', methods=['GET', 'POST'])
-def add_expense():
-    if 'user' not in session:
-        return redirect('/login')
-
-    if request.method == 'POST':
-        amount = float(request.form['amount'])
-
-        supabase.table("expenses").insert({
-            "amount": amount,
-            "user_id": session['user'],
-            "created_at": datetime.utcnow().isoformat()
-        }).execute()
-
-        return redirect('/')
-
-    return render_template('add_expense.html')
+# RESET
 
 
 @app.route('/reset', methods=['POST'])
