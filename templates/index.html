@@ -2,7 +2,10 @@
 <html>
 <head>
     <title>MoneyRight</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0d1b2a">
 
     <style>
         body { margin:0; font-family:Arial; background:#f1f3f6; }
@@ -90,24 +93,6 @@
         <a class="btn income" href="/add_earning">+ Add Earnings</a>
         <a class="btn expense" href="/add_expense">+ Add Expense</a>
         <a class="btn download" href="/download">Download Report</a>
-    </div>
-
-    <div class="card">
-        <h3>Earnings</h3>
-        <ul>
-            {% for e in earnings %}
-                <li>R{{ e.amount }} ({{ e.date }})</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="card">
-        <h3>Expenses</h3>
-        <ul>
-            {% for e in expenses %}
-                <li>R{{ e.amount }} ({{ e.date }})</li>
-            {% endfor %}
-        </ul>
     </div>
 
     <form method="POST" action="/reset">
